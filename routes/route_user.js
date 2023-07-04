@@ -31,7 +31,7 @@ router.post('/login', async (req, res) => {
         res.status(401).json({ message: 'Incorrect password' });
       }
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: 'User not found'});
     }
   }
   catch (error) {
