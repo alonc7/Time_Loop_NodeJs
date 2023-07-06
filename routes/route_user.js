@@ -26,12 +26,13 @@ router.post('/login', async (req, res) => {
     if (user) {
       const isPasswordMatch = await User.comparePassword(password, user.hashedPassword);
       if (isPasswordMatch) {
+        const token = jwt.sign({ email: user.email, userId: user._id }, secretKey, { expiresIn: '1d' });
         res.status(200).json({ message: 'Login successful', user });
       } else {
         res.status(401).json({ message: 'Incorrect password' });
       }
     } else {
-      res.status(404).json({ message: 'User not found'});
+      res.status(404).json({ message: 'User not found' });
     }
   }
   catch (error) {
